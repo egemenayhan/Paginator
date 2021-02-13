@@ -8,5 +8,11 @@
 import Foundation
 
 struct PeoplePresentation {
-    // TODO: implementation
+
+    private(set) var people: [Person] = []
+
+    mutating func refresh(state: PeopleState) {
+        people = state.people
+    }
+
 }
