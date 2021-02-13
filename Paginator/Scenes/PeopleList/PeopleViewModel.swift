@@ -84,7 +84,7 @@ class PeopleViewModel {
                 let isNextPageDifferent = ((strongSelf.state.nextPage != nil) && !isInitialFetch && (strongSelf.state.nextPage != next))
                 if (initialPageHasNextPage || isNextPageDifferent)
                     && strongSelf.fetchRetryCount < Constants.fetchRetryThreshold { // fetch if there is next page
-
+                    strongSelf.emit(.refreshLoaded)
                     strongSelf.fetchRetryCount += 1
                     strongSelf.loadData(next: response.next)
                 } else if isInitialFetch,
