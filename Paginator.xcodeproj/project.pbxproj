@@ -7,25 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B07F4AB25D7FBD5008C82E0 /* PaginationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B07F4AA25D7FBD5008C82E0 /* PaginationView.swift */; };
 		7B7E581925D7C7CF000D386E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7E581825D7C7CF000D386E /* AppDelegate.swift */; };
 		7B7E581B25D7C7CF000D386E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7E581A25D7C7CF000D386E /* SceneDelegate.swift */; };
-		7B7E581D25D7C7CF000D386E /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7E581C25D7C7CF000D386E /* ViewController.swift */; };
+		7B7E581D25D7C7CF000D386E /* PeopleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7E581C25D7C7CF000D386E /* PeopleController.swift */; };
 		7B7E582025D7C7CF000D386E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7E581E25D7C7CF000D386E /* Main.storyboard */; };
 		7B7E582225D7C7D0000D386E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B7E582125D7C7D0000D386E /* Assets.xcassets */; };
 		7B7E582525D7C7D0000D386E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B7E582325D7C7D0000D386E /* LaunchScreen.storyboard */; };
 		7B7E582F25D7CDE0000D386E /* DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7E582E25D7CDE0000D386E /* DataSource.swift */; };
+		7B7E583525D7D0FC000D386E /* PeopleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7E583425D7D0FC000D386E /* PeopleViewModel.swift */; };
+		7B7E583925D7D110000D386E /* PeoplePresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7E583825D7D110000D386E /* PeoplePresentation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B07F4AA25D7FBD5008C82E0 /* PaginationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationView.swift; sourceTree = "<group>"; };
 		7B7E581525D7C7CF000D386E /* Paginator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Paginator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7E581825D7C7CF000D386E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B7E581A25D7C7CF000D386E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		7B7E581C25D7C7CF000D386E /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		7B7E581C25D7C7CF000D386E /* PeopleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleController.swift; sourceTree = "<group>"; };
 		7B7E581F25D7C7CF000D386E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		7B7E582125D7C7D0000D386E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7B7E582425D7C7D0000D386E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B7E582625D7C7D0000D386E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7B7E582E25D7CDE0000D386E /* DataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSource.swift; sourceTree = "<group>"; };
+		7B7E583425D7D0FC000D386E /* PeopleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewModel.swift; sourceTree = "<group>"; };
+		7B7E583825D7D110000D386E /* PeoplePresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeoplePresentation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -39,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B07F4A925D7FBB7008C82E0 /* PaginationView */ = {
+			isa = PBXGroup;
+			children = (
+				7B07F4AA25D7FBD5008C82E0 /* PaginationView.swift */,
+			);
+			path = PaginationView;
+			sourceTree = "<group>";
+		};
 		7B7E580C25D7C7CF000D386E = {
 			isa = PBXGroup;
 			children = (
@@ -58,10 +72,10 @@
 		7B7E581725D7C7CF000D386E /* Paginator */ = {
 			isa = PBXGroup;
 			children = (
+				7B7E583225D7D0DD000D386E /* Scenes */,
 				7B7E582D25D7CDCB000D386E /* DataSource */,
 				7B7E581825D7C7CF000D386E /* AppDelegate.swift */,
 				7B7E581A25D7C7CF000D386E /* SceneDelegate.swift */,
-				7B7E581C25D7C7CF000D386E /* ViewController.swift */,
 				7B7E581E25D7C7CF000D386E /* Main.storyboard */,
 				7B7E582125D7C7D0000D386E /* Assets.xcassets */,
 				7B7E582325D7C7D0000D386E /* LaunchScreen.storyboard */,
@@ -76,6 +90,25 @@
 				7B7E582E25D7CDE0000D386E /* DataSource.swift */,
 			);
 			path = DataSource;
+			sourceTree = "<group>";
+		};
+		7B7E583225D7D0DD000D386E /* Scenes */ = {
+			isa = PBXGroup;
+			children = (
+				7B7E583325D7D0E2000D386E /* PeopleList */,
+			);
+			path = Scenes;
+			sourceTree = "<group>";
+		};
+		7B7E583325D7D0E2000D386E /* PeopleList */ = {
+			isa = PBXGroup;
+			children = (
+				7B07F4A925D7FBB7008C82E0 /* PaginationView */,
+				7B7E581C25D7C7CF000D386E /* PeopleController.swift */,
+				7B7E583425D7D0FC000D386E /* PeopleViewModel.swift */,
+				7B7E583825D7D110000D386E /* PeoplePresentation.swift */,
+			);
+			path = PeopleList;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,10 +181,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7B7E581D25D7C7CF000D386E /* ViewController.swift in Sources */,
+				7B7E581D25D7C7CF000D386E /* PeopleController.swift in Sources */,
 				7B7E581925D7C7CF000D386E /* AppDelegate.swift in Sources */,
 				7B7E582F25D7CDE0000D386E /* DataSource.swift in Sources */,
+				7B07F4AB25D7FBD5008C82E0 /* PaginationView.swift in Sources */,
+				7B7E583525D7D0FC000D386E /* PeopleViewModel.swift in Sources */,
 				7B7E581B25D7C7CF000D386E /* SceneDelegate.swift in Sources */,
+				7B7E583925D7D110000D386E /* PeoplePresentation.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
