@@ -10,21 +10,32 @@ typealias PeopleChangeHandler = (PeopleState.Change)->()
 
 struct PeopleState {
 
-    var people: [Person] = []
+    var people: Set<Person> = []
     var nextPage: String?
+    var lastFetchAttempt: String?
+    var isFetchInProgress = false
 
     enum Change {
         case refreshLoading
         case refreshLoaded
+        case paginationLoading
+        case paginationLoaded
+        case paginationError
         case reloaded
+        case paginated(newPeople: [Person], diffCount: Int)
         case errorOcurred(String?)
     }
 }
 
 class PeopleViewModel {
 
+    enum Constants {
+        static let fetchRetryThreshold = 3
+    }
+
     var stateChangeHandler: PeopleChangeHandler?
     private(set) var state: PeopleState
+    private var fetchRetryCount = 0
 
     init(state: PeopleState) {
         self.state = state
@@ -39,25 +50,91 @@ class PeopleViewModel {
         loadData(next: nil)
     }
 
-    func loadData(next: String?) {
-        emit(.refreshLoading)
+    func nextPage() {
+        guard let next = state.nextPage else { return }
+        loadData(next: next)
+    }
+
+    func retry() {
+        loadData(next: state.lastFetchAttempt)
+    }
+
+    private func loadData(next: String?) {
+        guard !state.isFetchInProgress else { return }
+        let isInitialFetch = next == nil
+        isInitialFetch ? emit(.refreshLoading) : emit(.paginationLoading)
+        state.isFetchInProgress = true
+        state.lastFetchAttempt = next
         DataSource.fetch(next: next) { [weak self] (response, error) in
-            self?.emit(.refreshLoaded)
+            self?.state.isFetchInProgress = false
             guard let strongSelf = self,
                   let response = response,
                   error == nil else {
-                self?.emit(.errorOcurred(error?.errorDescription ?? "Couldn`t fetch data."))
+                if next == nil {
+                    self?.emit(.refreshLoaded)
+                    self?.emit(.errorOcurred(error?.errorDescription ?? "Couldn`t fetch data."))
+                } else {
+                    self?.emit(.paginationError)
+                }
                 return
             }
-            print("count: \(response.people.count)")
+
+            guard response.people.count > 0 else { // automatically fetches next page if people count is 0
+                let initialPageHasNextPage = ((response.next != nil) && isInitialFetch)
+                let isNextPageDifferent = ((strongSelf.state.nextPage != nil) && !isInitialFetch && (strongSelf.state.nextPage != next))
+                if (initialPageHasNextPage || isNextPageDifferent)
+                    && strongSelf.fetchRetryCount < Constants.fetchRetryThreshold { // fetch if there is next page
+
+                    strongSelf.fetchRetryCount += 1
+                    strongSelf.loadData(next: response.next)
+                } else if isInitialFetch,
+                          strongSelf.state.people.isEmpty,
+                          strongSelf.fetchRetryCount < Constants.fetchRetryThreshold { // retry initial fetch if there is no next page and people
+
+                    strongSelf.emit(.refreshLoaded)
+                    strongSelf.fetchRetryCount += 1
+                    strongSelf.loadData(next: nil)
+                } else if isInitialFetch { // can not retry again for initial fetch
+                    strongSelf.emit(.refreshLoaded)
+                    strongSelf.emit(.errorOcurred("Failed to reload page."))
+                } else { // can not retry again for pagination
+                    strongSelf.emit(.paginationError)
+                }
+                return
+            }
+            strongSelf.state.nextPage = response.next
+            isInitialFetch ? strongSelf.emit(.refreshLoaded) : strongSelf.emit(.paginationLoaded)
+            strongSelf.fetchRetryCount = 0 // reset retry count on successfull operation
             if next == nil {
-                strongSelf.state.people = response.people
+                strongSelf.state.people = Set(response.people)
                 strongSelf.emit(.reloaded)
             } else {
-                strongSelf.state.people.append(contentsOf: response.people)
-                strongSelf.emit(.reloaded)
+                let newPeople = Set(response.people)
+                let union = strongSelf.state.people.union(newPeople) // merge arrays without duplicate values
+                let diff = newPeople.subtracting(strongSelf.state.people) // unique new people to add
+                let diffCount = diff.count
+                guard diffCount > 0 else { // automatically fetches next page if there is no new unique people
+                    if let nextPage = strongSelf.state.nextPage {
+                        strongSelf.loadData(next: nextPage)
+                    }
+                    return
+                }
+                strongSelf.state.people = union
+                strongSelf.emit(.paginated(newPeople: Array(diff), diffCount: diffCount))
             }
         }
+    }
+
+}
+
+extension Person: Hashable, Equatable {
+
+    public static func == (lhs: Person, rhs: Person) -> Bool {
+        return lhs.id == rhs.id
+    }
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(id)
     }
 
 }

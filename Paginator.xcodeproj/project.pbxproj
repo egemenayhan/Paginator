@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7B07F4AB25D7FBD5008C82E0 /* PaginationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B07F4AA25D7FBD5008C82E0 /* PaginationView.swift */; };
 		7B7E581925D7C7CF000D386E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7E581825D7C7CF000D386E /* AppDelegate.swift */; };
 		7B7E581B25D7C7CF000D386E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7E581A25D7C7CF000D386E /* SceneDelegate.swift */; };
 		7B7E581D25D7C7CF000D386E /* PeopleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B7E581C25D7C7CF000D386E /* PeopleController.swift */; };
@@ -19,6 +20,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7B07F4AA25D7FBD5008C82E0 /* PaginationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginationView.swift; sourceTree = "<group>"; };
 		7B7E581525D7C7CF000D386E /* Paginator.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Paginator.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		7B7E581825D7C7CF000D386E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		7B7E581A25D7C7CF000D386E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -43,6 +45,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B07F4A925D7FBB7008C82E0 /* PaginationView */ = {
+			isa = PBXGroup;
+			children = (
+				7B07F4AA25D7FBD5008C82E0 /* PaginationView.swift */,
+			);
+			path = PaginationView;
+			sourceTree = "<group>";
+		};
 		7B7E580C25D7C7CF000D386E = {
 			isa = PBXGroup;
 			children = (
@@ -93,6 +103,7 @@
 		7B7E583325D7D0E2000D386E /* PeopleList */ = {
 			isa = PBXGroup;
 			children = (
+				7B07F4A925D7FBB7008C82E0 /* PaginationView */,
 				7B7E581C25D7C7CF000D386E /* PeopleController.swift */,
 				7B7E583425D7D0FC000D386E /* PeopleViewModel.swift */,
 				7B7E583825D7D110000D386E /* PeoplePresentation.swift */,
@@ -173,6 +184,7 @@
 				7B7E581D25D7C7CF000D386E /* PeopleController.swift in Sources */,
 				7B7E581925D7C7CF000D386E /* AppDelegate.swift in Sources */,
 				7B7E582F25D7CDE0000D386E /* DataSource.swift in Sources */,
+				7B07F4AB25D7FBD5008C82E0 /* PaginationView.swift in Sources */,
 				7B7E583525D7D0FC000D386E /* PeopleViewModel.swift in Sources */,
 				7B7E581B25D7C7CF000D386E /* SceneDelegate.swift in Sources */,
 				7B7E583925D7D110000D386E /* PeoplePresentation.swift in Sources */,
