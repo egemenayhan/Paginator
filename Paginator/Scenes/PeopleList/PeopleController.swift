@@ -90,6 +90,7 @@ class PeopleController: UIViewController {
 
         refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        refreshControl.tintColor = .white
         tableView.addSubview(refreshControl)
         tableView.dataSource = self
         tableView.separatorStyle = .singleLine
@@ -124,11 +125,8 @@ class PeopleController: UIViewController {
 
     private func handlePagination(newPeople: [Person], diffCount: Int) {
         self.presentation.update(newPeople: newPeople)
-        var newIndexes: [IndexPath] = []
         let lowerBound = presentation.people.count - diffCount
-        for index in lowerBound..<presentation.people.count {
-            newIndexes.append(IndexPath(row: index, section: 0))
-        }
+        let newIndexes: [IndexPath] = (lowerBound..<presentation.people.count).reduce([], { $0 + [IndexPath(row: $1, section: 0)] })
         tableView.performBatchUpdates { [weak self] in
             self?.tableView.insertRows(at: newIndexes, with: .automatic)
         }

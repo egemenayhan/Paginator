@@ -12,7 +12,7 @@ struct PeoplePresentation {
     private(set) var people: [Person] = []
 
     mutating func refresh(state: PeopleState) {
-        people = Array(state.people)
+        people = state.people.array as? [Person] ?? []
     }
 
     mutating func update(newPeople: [Person]) {

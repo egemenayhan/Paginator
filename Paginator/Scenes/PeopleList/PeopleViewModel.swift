@@ -10,7 +10,7 @@ typealias PeopleChangeHandler = (PeopleState.Change)->()
 
 struct PeopleState {
 
-    var people: Set<Person> = []
+    var people: NSMutableOrderedSet = []
     var nextPage: String?
     var lastFetchAttempt: String?
     var isFetchInProgress = false
@@ -88,7 +88,7 @@ class PeopleViewModel {
                     strongSelf.fetchRetryCount += 1
                     strongSelf.loadData(next: response.next)
                 } else if isInitialFetch,
-                          strongSelf.state.people.isEmpty,
+                          strongSelf.state.people.count == 0,
                           strongSelf.fetchRetryCount < Constants.fetchRetryThreshold { // retry initial fetch if there is no next page and people
 
                     strongSelf.emit(.refreshLoaded)
@@ -106,21 +106,20 @@ class PeopleViewModel {
             isInitialFetch ? strongSelf.emit(.refreshLoaded) : strongSelf.emit(.paginationLoaded)
             strongSelf.fetchRetryCount = 0 // reset retry count on successfull operation
             if next == nil {
-                strongSelf.state.people = Set(response.people)
+                strongSelf.state.people = NSMutableOrderedSet(array: response.people)
                 strongSelf.emit(.reloaded)
             } else {
-                let newPeople = Set(response.people)
-                let union = strongSelf.state.people.union(newPeople) // merge arrays without duplicate values
-                let diff = newPeople.subtracting(strongSelf.state.people) // unique new people to add
-                let diffCount = diff.count
+                let newPeople = NSMutableOrderedSet(array: response.people) // remove duplicate values from itself
+                newPeople.minus(strongSelf.state.people) // unique new people to add
+                strongSelf.state.people.addObjects(from: newPeople.array) // append new people to our data source
+                let diffCount = newPeople.count
                 guard diffCount > 0 else { // automatically fetches next page if there is no new unique people
                     if let nextPage = strongSelf.state.nextPage {
                         strongSelf.loadData(next: nextPage)
                     }
                     return
                 }
-                strongSelf.state.people = union
-                strongSelf.emit(.paginated(newPeople: Array(diff), diffCount: diffCount))
+                strongSelf.emit(.paginated(newPeople: newPeople.array as? [Person] ?? [], diffCount: diffCount))
             }
         }
     }
