@@ -60,7 +60,10 @@ class PeopleViewModel {
     }
 
     private func loadData(next: String?) {
-        guard !state.isFetchInProgress else { return }
+        guard !state.isFetchInProgress else {
+            emit(.refreshLoaded)
+            return
+        }
         let isInitialFetch = next == nil
         isInitialFetch ? emit(.refreshLoading) : emit(.paginationLoading)
         state.isFetchInProgress = true
